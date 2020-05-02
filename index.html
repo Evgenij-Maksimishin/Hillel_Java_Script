@@ -4,19 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_2</title>
+    <title>Home_work_3</title>
 </head>
 
 <body>
     <script>
-        let myName = ('Evgenij');
-        let mySurname = ('Maksimishin');
-        let myAge = (25);
-        let message = ('Hello world!');
-        alert(myName + ' ' + mySurname);
-        alert(myAge);
-        alert(message);
-        alert(myName + ' ' + mySurname + ' ' + ' ' + myAge + ' ' + ' ' + message);
+        'use strict';
+
+        let name = prompt('Укажите своё имя', "");
+        let age = prompt('Укажите свой возраст', "");
+        let approve = confirm('Алкоголь употребляем?', "");
+
+        if (approve) {
+
+            if (age > 40) {
+
+                alert(name + ' Не злоупотребляйте');
+
+            } else if (age < 18) {
+
+                alert(name + ' Ты что?! Маме расскажу!');
+
+            } else if (age >= 18 && age <= 40) {
+
+                alert(name + ' Только водку с пивом не мешай...');
+
+            }
+
+        }
+
+        else {
+
+            alert(name + " Так держать!");
+
+        }
+
     </script>
 </body>
 
