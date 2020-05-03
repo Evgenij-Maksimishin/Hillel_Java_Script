@@ -4,89 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CANVAS_2D</title>
-
-    <style>
-        body {
-            margin: 0;
-        }
-
-        #canvas {
-            border: 3px solid tomato;
-        }
-    </style>
-
+    <title>Home_work_15</title>
 </head>
 
 <body>
 
-    <canvas id="canvas" width="400" height="300"></canvas>
+    <div class="wrapper">
 
-    <script>
-        'use strict';
+        <h2>First</h2>
+        <section>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, nostrum, sunt. Vel quis voluptatem
+                culpa, sint maiores distinctio rerum perspiciatis esse nemo nesciunt amet, ipsam nulla consectetur
+                facere
+                placeat eveniet magni libero dolor, cum? Minus quasi dolorum maiores non perferendis.
+            </p>
+        </section>
 
-        const $canvas = document.querySelector('#canvas');
-        const ctx = canvas.getContext('2d');
+        <h2>Second</h2>
+        <section>
+            <p>
+                Officiis voluptas accusantium cupiditate officia! Asperiores eligendi tempore blanditiis, unde
+                excepturi voluptas velit, inventore nostrum necessitatibus nisi officia, sed corporis rerum maxime.
+                Blanditiis officiis sed veniam incidunt maiores, perspiciatis error rerum laboriosam pariatur
+                consequatur.
+                Placeat dolorum aspernatur quidem error soluta.
+            </p>
+        </section>
 
-        ctx.strokeStyle = 'blue';
-        ctx.lineWidth = 4;
+        <h2>Third</h2>
+        <section>
+            <p>
+                Voluptas vitae pariatur numquam deserunt eveniet dolores tempora, delectus quo voluptatum provident.
+                Nostrum, laborum, quis. Omnis debitis inventore eveniet magnam odio, sequi repudiandae illum autem culpa
+                similique aperiam ratione quo quaerat molestiae in dele2iti fugiat, suscipit est? Veniam, recusandae,
+                consequatur!
+            </p>
+        </section>
 
-        function drawCircle(x, y, radius) {
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
-            ctx.stroke();
-        };
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+            'use strict';
 
-        drawCircle(200, 240, 50)
-        drawCircle(200, 150, 40)
-        drawCircle(200, 80, 30)
+            const $container = document.createElement('div');
+            $container.className = 'container';
+            document.body.append($container);
 
-
-
-        function drawMiniCircle(x, y, radius) {
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
-            ctx.fillStyle = 'black';
-            ctx.fill();
-        };
-
-        drawMiniCircle(190, 75, 4);
-        drawMiniCircle(210, 75, 4);
-        drawMiniCircle(200, 130, 4);
-        drawMiniCircle(200, 150, 4);
-        drawMiniCircle(200, 170, 4);
-
-
-
-        function toMakeSmileForSmowMan(x, y, radius) {
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI, true);
-            ctx.fillStyle = 'black';
-            ctx.fill();
-        };
-
-        toMakeSmileForSmowMan(187, 92, 2);
-        toMakeSmileForSmowMan(189, 94, 2);
-        toMakeSmileForSmowMan(192, 95, 2);
-        toMakeSmileForSmowMan(195, 95, 2);
-        toMakeSmileForSmowMan(197, 95, 2);
-        toMakeSmileForSmowMan(200, 95, 2);
-        toMakeSmileForSmowMan(203, 95, 2);
-        toMakeSmileForSmowMan(205, 95, 2);
-        toMakeSmileForSmowMan(208, 95, 2)
-        toMakeSmileForSmowMan(210, 94, 2);
-        toMakeSmileForSmowMan(213, 92, 2);
+            let $table = document.createElement('table');
+            $container.prepend($table);
 
 
+            function createTable(row, cols) {
+
+                $table = '<table>';
+
+                for (let i = 1; i <= row; i++) {
+
+                    let tr = '<tr>';
+
+                    for (let j = 1; j <= cols; j++) {
+
+                        tr += `<td style="border: 1px solid brown; padding: 25px; cursor:pointer; text-align: center;">${Math.ceil(Math.random() * 100)}</td>`;
+
+                    }
+
+                    tr += '</tr>';
+
+                    $table += tr;
+
+                }
+                $table += '</table>'
+
+                return $table
+            }
+
+            $container.innerHTML = createTable(3, 3);
+            /*let $td = document.querySelectorAll('td');
+            $td.forEach(function (e) {
+                e.style = "border: 1px solid brown; padding: 25px; cursor:pointer";
+            });*/
 
 
-        ctx.beginPath();
-        ctx.arc(200, 85, 4, 0, 2 * Math.PI, true);
-        ctx.fillStyle = 'orange';
-        ctx.fill();
+
+            const $inputTable = document.createElement("input");
+            $inputTable.className = 'inputTable';
+            $inputTable.setAttribute('type', 'text');
+            $inputTable.style = 'margin-left: 19px; margin-top: 10px';
+            $container.append($inputTable);
 
 
-    </script>
+            document.querySelector("table").addEventListener('click', function (el) {
+                const $el = el.target;
+                if ($el.tagName === 'TD') {
+                    $inputTable.value = $el.textContent
+                }
+            });
+
+
+
+            /// Task 2 
+
+
+            jQuery(() => {     // $(document).ready(function(){});
+
+                $('.wrapper').css({
+                    'margin': '60px auto',
+                    'width': '80%',
+                    'max-width': '500px'
+                });
+
+                $('h2').css({
+                    'background': '#FF6766',
+                    'border-radius': '5px 5px 0 0',
+                    'margin': '10px 0 0 0',
+                    'color': '#FFFFF7',
+                    'font-size': '20px',
+                    'padding': '5px',
+                    'text-align': 'center'
+                });
+
+                $('h2').hover(function () {
+                    $(this).css('background', '#FF7877');
+                    $(this).css('cursor', 'pointer')
+                });
+
+                $('section').css({
+                    'background': '#FFFFF7',
+                    'border- radius': '0 0 5px 5px',
+                    'padding': '5px',
+                    'color': '#60646D'
+                });
+
+                $('.wrapper>section').not(this).hide(2000);
+
+                $('.wrapper>h2').click(function () {
+
+                    let findSection = $(this).next();
+                    let findWrapper = $(this).closest('.wrapper');
+
+                    if (findSection.is(':visible')) {
+                        findSection.slideUp('fast');
+                    }
+
+                    else {
+                        findWrapper.find('>section').slideUp('fast');
+                        findSection.slideDown('fast');
+                    }
+                });
+
+            });
+
+
+        </script>
 </body>
 
 </html>
