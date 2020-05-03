@@ -4,158 +4,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_15</title>
+    <title>Home_work_17</title>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            border: 1px solid salmon;
+            float: left;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            cursor: pointer;
+        }
+
+        .box span {
+            width: 100%;
+            text-align: center;
+        }
+
+        .box button {
+            width: 40%;
+        }
+
+        .container_2 {
+            display: flex;
+            margin: 0 auto;
+            width: 600px;
+            margin-top: 100px;
+        }
+
+        .boxes {
+            width: 100px;
+            height: 100px;
+            margin-left: 15px;
+            border: 1px solid royalblue;
+            cursor: pointer;
+
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="wrapper">
+    <div class="container">
 
-        <h2>First</h2>
-        <section>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, nostrum, sunt. Vel quis voluptatem
-                culpa, sint maiores distinctio rerum perspiciatis esse nemo nesciunt amet, ipsam nulla consectetur
-                facere
-                placeat eveniet magni libero dolor, cum? Minus quasi dolorum maiores non perferendis.
-            </p>
-        </section>
+        <div class="box">
 
-        <h2>Second</h2>
-        <section>
-            <p>
-                Officiis voluptas accusantium cupiditate officia! Asperiores eligendi tempore blanditiis, unde
-                excepturi voluptas velit, inventore nostrum necessitatibus nisi officia, sed corporis rerum maxime.
-                Blanditiis officiis sed veniam incidunt maiores, perspiciatis error rerum laboriosam pariatur
-                consequatur.
-                Placeat dolorum aspernatur quidem error soluta.
-            </p>
-        </section>
+            Val:<span class="box-content">0</span>
 
-        <h2>Third</h2>
-        <section>
-            <p>
-                Voluptas vitae pariatur numquam deserunt eveniet dolores tempora, delectus quo voluptatum provident.
-                Nostrum, laborum, quis. Omnis debitis inventore eveniet magnam odio, sequi repudiandae illum autem culpa
-                similique aperiam ratione quo quaerat molestiae in dele2iti fugiat, suscipit est? Veniam, recusandae,
-                consequatur!
-            </p>
-        </section>
+            <button type="button" data-action="plus">+</button>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script>
-            'use strict';
+            <button type="button" data-action="minus">-</button>
 
-            const $container = document.createElement('div');
-            $container.className = 'container';
-            document.body.append($container);
+        </div>
 
-            let $table = document.createElement('table');
-            $container.prepend($table);
+        <div class="box">
+
+            Val:<span class="box-content">0</span>
+
+            <button type="button" data-action="plus">+</button>
+
+            <button type="button" data-action="minus">-</button>
+
+        </div>
+
+        <div class="box">
+
+            Val:<span class="box-content">0</span>
+
+            <button type="button" data-action="plus">+</button>
+
+            <button type="button" data-action="minus">-</button>
+
+        </div>
+
+        <div class="box">
+
+            Val:<span class="box-content">0</span>
+
+            <button type="button" data-action="plus">+</button>
+
+            <button type="button" data-action="minus">-</button>
+
+        </div>
+
+        <div class="box">
+
+            Val:<span class="box-content">0</span>
+
+            <button type="button" data-action="plus">+</button>
+
+            <button type="button" data-action="minus">-</button>
+
+        </div>
+
+    </div>
+
+    <div class="container_2">
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+        <div class="boxes"></div>
+    </div>
 
 
-            function createTable(row, cols) {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        'use strict';
 
-                $table = '<table>';
+        /// Task 1 
 
-                for (let i = 1; i <= row; i++) {
+        $(".box").on("click", "button", function (el) {
 
-                    let tr = '<tr>';
 
-                    for (let j = 1; j <= cols; j++) {
+            if ($(this).attr('data-action') === 'plus') {
 
-                        tr += `<td style="border: 1px solid brown; padding: 25px; cursor:pointer; text-align: center;">${Math.ceil(Math.random() * 100)}</td>`;
+                this.closest('.box').firstElementChild.textContent++;
+                //this.parentNode.firstElementChild.textContent++;
 
-                    }
-
-                    tr += '</tr>';
-
-                    $table += tr;
-
-                }
-                $table += '</table>'
-
-                return $table
             }
 
-            $container.innerHTML = createTable(3, 3);
-            /*let $td = document.querySelectorAll('td');
-            $td.forEach(function (e) {
-                e.style = "border: 1px solid brown; padding: 25px; cursor:pointer";
-            });*/
+            else if ($(this).attr('data-action') === 'minus') {
+
+                this.parentNode.firstElementChild.textContent--;
+                //this.closest('.box').firstElementChild.textContent++;
+
+            }
+
+        });
 
 
 
-            const $inputTable = document.createElement("input");
-            $inputTable.className = 'inputTable';
-            $inputTable.setAttribute('type', 'text');
-            $inputTable.style = 'margin-left: 19px; margin-top: 10px';
-            $container.append($inputTable);
+        /// Task 2
+
+        $(".boxes").click(function () {
+
+            const bgColor = this.style.backgroundColor;
+
+            switch (bgColor) {
+
+                case '':
+
+                    $(this).css('background-color', 'blue');
+                    break;
+
+                case 'blue':
+
+                    $(this).css('background-color', 'green');
+                    break;
+
+                case 'green':
+
+                    $(this).css('background-color', 'yellow');
+                    break;
+
+                default:
+
+                    $(this).css('background-color', 'blue');
+
+            }
+
+            $(this).appendTo('.container_2');
+
+        });
 
 
-            document.querySelector("table").addEventListener('click', function (el) {
-                const $el = el.target;
-                if ($el.tagName === 'TD') {
-                    $inputTable.value = $el.textContent
-                }
-            });
-
-
-
-            /// Task 2 
-
-
-            jQuery(() => {     // $(document).ready(function(){});
-
-                $('.wrapper').css({
-                    'margin': '60px auto',
-                    'width': '80%',
-                    'max-width': '500px'
-                });
-
-                $('h2').css({
-                    'background': '#FF6766',
-                    'border-radius': '5px 5px 0 0',
-                    'margin': '10px 0 0 0',
-                    'color': '#FFFFF7',
-                    'font-size': '20px',
-                    'padding': '5px',
-                    'text-align': 'center'
-                });
-
-                $('h2').hover(function () {
-                    $(this).css('background', '#FF7877');
-                    $(this).css('cursor', 'pointer')
-                });
-
-                $('section').css({
-                    'background': '#FFFFF7',
-                    'border- radius': '0 0 5px 5px',
-                    'padding': '5px',
-                    'color': '#60646D'
-                });
-
-                $('.wrapper>section').not(this).hide(2000);
-
-                $('.wrapper>h2').click(function () {
-
-                    let findSection = $(this).next();
-                    let findWrapper = $(this).closest('.wrapper');
-
-                    if (findSection.is(':visible')) {
-                        findSection.slideUp('fast');
-                    }
-
-                    else {
-                        findWrapper.find('>section').slideUp('fast');
-                        findSection.slideDown('fast');
-                    }
-                });
-
-            });
-
-
-        </script>
+    </script>
 </body>
 
 </html>
