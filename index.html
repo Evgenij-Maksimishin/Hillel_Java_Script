@@ -4,109 +4,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_18</title>
+    <title>Home_work_19</title>
+
+    <style>
+        .fb_box {
+            display: flex;
+            justify-content: center;
+        }
+
+        .vk_box {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .fb_content,
+        .vk_content {
+            min-height: 20px;
+            font-size: 20px;
+            line-height: 20px;
+            border: 1px solid;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
 
+    <div class="fb_box">
+        <button class="fb">FB Like</button>
+        <div class="fb_content" contenteditable="true"></div>
+        <button class="fb_clear-out">Clear Out</button>
+    </div>
+
+    <div class="vk_box">
+        <button class="vk">VK Like</button>
+        <div class="vk_content" contenteditable="true"></div>
+        <button class="vk_clear-out">Clear Out</button>
+    </div>
+
+
     <script>
         'use strict';
 
-        // Bind
+        /// Task 1
 
-        const person = {
-            name: 'Elizabeth'
-        }
 
-        function info(phone, email) {
-            console.log(`Name: ${this.name}\nNumber of Phone: ${phone}\nEmail: ${email}`);
-        }
+        function calcSum() {
+            let acc = 0;
 
-        //info.bind(person)('12345', 'xxx-xxx-xxx@gmail.com');
-        //info.bind(person, '12345')('xxx-xxx-xxx@gmail.com');
-        //info.bind(person, '12345', 'xxx-xxx-xxx@gmail.com')();
-
-        /*function bind(fn, context, ...rest) {
-            return fn.bind(context, ...rest)
-        }*/
-
-        function bind(fn, context, ...rest) {
-
-            return function (...arg) {
-
-                return fn.call(context, ...rest.concat(arg));
-
-            }
-
-        }
-
-        bind(info, person)('12345', 'xxx-xxx-xxx@gmail.com');
-        bind(info, person, '12345')('xxx-xxx-xxx@gmail.com');
-        bind(info, person, '12345', 'xxx-xxx-xxx@gmail.com')();
-
-        /*  Way by lesson:
-        
-            const bind = function (fn, context) {
-            const necesseraryArgCount = 2;
-            const bindArg = Array.prototype.slice.call(arguments, necesseraryArgCount);
-            return function () {
-                const fnArg = Array.prototype.slice.call(arguments);
-                return fn.apply(context, bindArg.concat(fnArg))
+            return function (value) {
+                return acc += value;
             }
         };
-        console.log(bind(function () {}, {}, 'Java', 'Script'));
-        */
+
+        const sum = calcSum();
+        const sum2 = calcSum();
+
+        console.log(sum(3));
+        console.log(sum(5));
+        console.log(sum(20));
+
+        console.log(sum2(10));
+        console.log(sum2(15));
 
 
-        // Bind + Map
 
 
-        const arr = [1, 2, 3, 4, 5]
+        /// Task 2
 
-        const map = function (array, cb, thisArg) {
 
-            const res = [];
+        // First Way
 
-            for (let i = 0; i < arr.length; i++) {
+        /*function makeCounter(initialValue, step) {
+           let acc = initialValue;
+           function counter() {
+               return acc += step;
+           }
+           counter.reset = function () {
+               acc = initialValue;
+               return acc;
+           }
+           return counter;
+       }
+       const fbCounter = makeCounter(0, 1);
+       const vkCounter = makeCounter(5, 2.5);
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter.reset(), 'reset');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');
+       console.log(fbCounter(), 'fbCounter');*/
 
-                res.push(cb.call(thisArg || array[i], array[i], i, array));
 
-            };
 
-            return res;
+        // Second Way
 
+        /*function makeCounter(initialValue, step) {
+            let acc = initialValue;
+            return {
+                next() {
+                    return acc += step;
+                },
+                reset() {
+                    acc = initialValue;
+                    return acc;
+                }
+            }
         }
+        const fbCounter = makeCounter(0, 1);
+        const vkCounter = makeCounter(5, 2.5);
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.reset(), 'reset');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(fbCounter.next(), 'fbCounter');
+        console.log(vkCounter.next(), 'vkCounter');
+        console.log(vkCounter.next(), 'vkCounter');
+        console.log(vkCounter.next(), 'vkCounter');*/
 
-        const arrToSq = map(arr, function (el, i) {
+
+
+        function makeCounter(initialValue, step) {
+
+            let acc = initialValue;
 
             return {
-                index: i,
-                value: el ** 2
+                next() {
+                    return acc += step;
+                },
+                reset() {
+                    acc = initialValue;
+                    return acc;
+                }
             }
-        }, {});
 
-
-        console.log(arrToSq);
-
-
-
-        //const arrayTest = [1, 2, 3, 4, 5];
-        //const arratTest2 = [11, 22, 33, 44, 55];
-
-        /*function test(arr, n) {
-            return arr.map(function (el) {
-                return el * n
-            });
-        }
-        console.log(test(arrayTest, 5 ));*/
-
-        /*Array.prototype.test2 = function (n) {
-            return this.map(function (el) {
-                return el * n
-            });
         };
-        console.log(arrayTest.test2(5));
-        console.log(arratTest2.test2(5));*/
+
+        const fbCounter = makeCounter(0, 1);
+        const vkCounter = makeCounter(5, 5);
+
+
+        const $fbContent = document.querySelector('.fb_content');
+        const $fbClearOut = document.querySelector('.fb_clear-out');
+        const $fbButton = document.querySelector('.fb');
+
+        $fbButton.addEventListener('click', () => {
+            $fbContent.innerHTML = fbCounter.next();
+        });
+
+        $fbClearOut.addEventListener('click', () => {
+            $fbContent.innerHTML = fbCounter.reset();
+        });
+
+
+
+        const $vkContent = document.querySelector('.vk_content');
+        const $vkClearOut = document.querySelector('.vk_clear-out');
+        const $vkButton = document.querySelector('.vk');
+
+        $vkButton.addEventListener('click', () => {
+            $vkContent.innerHTML = vkCounter.next();
+        });
+
+        $vkClearOut.addEventListener('click', () => {
+            $vkContent.innerHTML = vkCounter.reset();
+        });
+
+
+
+        /// Task 3
+
+        function isPalindrome(number) {
+
+            const reversedNumber = Number(String(number).split("").reverse().join(""));
+
+            if (number === reversedNumber) {
+                return number;
+            }
+
+            return isPalindrome(number + reversedNumber);
+
+        }
+
+        console.log(isPalindrome(96));
+
+
+        /*function isPalindrome(number, reversedNumber) {
+            return number === reversedNumber;
+        }
+        function reverse(number) {
+            let numberAux = number;
+            let reversedNumber = 0;
+            while (numberAux > 0) {
+                let rightDigit = Math.floor(numberAux % 10);
+                reversedNumber = reversedNumber * 10 + rightDigit;
+                numberAux = Math.floor(numberAux / 10);
+            }
+            return reversedNumber;
+        }
+        function solve(number) {
+            const reversed = reverse(number);
+            if(isPalindrome(number, reversed)) {
+                return number;
+            }
+            else {
+                return solve(reversed + number);
+            }
+        }
+        console.log(solve(96));*/
 
 
     </script>
