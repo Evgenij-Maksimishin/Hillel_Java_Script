@@ -4,126 +4,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_7</title>
+    <title>Home_work_8</title>
 </head>
 
 <body>
     <script>
         'use strict';
 
-        let obj1 = {
-            a: 5,
-            b: 10,
-            x: 1
+        const arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
+
+
+        let result = arr.reduce(function (sum, current) {
+            return sum + current;
+        }, 0);
+
+        //const sum = arr.reduce((total, elementsOfArr) => total + elementsOfArr,0);
+
+        console.log(result);
+
+
+        let positiveArr = arr.filter(function (number) {
+            return number < 0;
+        });
+
+        //const sumFilter = arr.filter((elByFilter) => elByFilter < 0 );
+
+        console.log(positiveArr);
+
+
+        let arrSort = arr.sort(function (a, b) {
+            return a - b
+        });
+
+        // const sumSortREverse = arr.sort((a, b) => a - b);
+        console.log(arrSort);
+
+
+        let arrSort2 = arr.sort(function (a, b) {
+            return b - a
+        });
+
+        // const sumSort = arr.sort((a, b) => b - a);
+        console.log(arrSort2);
+
+
+        let divideByTwo = arr.map(function (a) {
+            return a / 2
+        });
+
+        //const sumMap = arr.map((elMap) =>  elMap /2);
+
+        console.log(divideByTwo);
+
+
+
+
+
+
+        const str = "12, 42, 63, 56, 122, 17, 117, 25, 645, 722, 964";
+
+
+        let makeNumbers = str.split(', ').map(function (a) {
+            return Number(a)
+        });
+
+        // const makeNumbers = str.split(',').map((numbers) => Number(numbers));
+
+        console.log(makeNumbers);
+
+
+        let makeEvenNumbers = makeNumbers.filter(function (a) {
+            return a % 2 === 0;
+        });
+
+        console.log(makeEvenNumbers);
+
+        /*const newArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const numbersOfEven = newArray.filter((n) => n % 2 === 0);
+        console.log(numbersOfEven)*/
+
+
+
+
+
+        const carModel = [
+            ['carMake', 'Bentley'],
+            ['country', 'England'],
+            ['year', 2020]
+        ];
+
+
+        function toObject(arr) {
+            let rv = {};
+            for (let i = 0; i < arr.length; ++i)
+                rv[carModel[i][0]] = carModel[i][1];
+            //obj[arr[i][0]] = arr[i][1]
+            return rv;
         }
 
-        let obj2 = {
-            x: 5,
-            y: 'New'
+        /* arr.forEach(function (el) {
+            obj[el[0]] = el[1]
+        })
+        return obj*/
 
-        }
+        let carObj = toObject(carModel)
+        console.log(carObj);
 
 
-        function copy(origin, target) {
 
-            for (let key in origin) {
-                target[key] = origin[key]
+        function toArr(objOfCarModel) {
+            let makeArr = [];
+
+            for (let key in obj1) {
+                newArray.push([key, obj1[key]]);
             }
 
-            return target
-        }
-        copy(obj1, obj2)
-        console.log(obj2)
+            return newArray;
 
-        /*let car1 = {
-            carMake: 'Mercedes-Benz'
-        };
-        let car2 = {};
-        function copy(car2, car1) {
-            for (let key in car1) {
-                car2[key] = car1[key];
+            /*for (let key in objOfCarModel) {
+                let tmp = [];
+                tmp.push(key);
+                tmp.push(objOfCarModel[key]);
+                makeArr.push(tmp);
             }
-            return car2;
-        }
-        console.log(car1);
-        console.log(copy(car2, car1));
-        console.log(car2);*/
-
-
-        function getEvenNumbers(n) {
-            let count = 0;
-            let str = String(n)
-
-
-            for (let i = 0; i <= str.length; i++) {
-
-                if (str[i] % 2 === 0) {
-                    count++
-                }
-
-            }
-            return count
+            return makeArr*/
         }
 
-        console.log(getEvenNumbers(223344))
-
-        /*function getNumberOfEven(n) {
-            let sumNumbersOfEven = 0;
-            for (let i = 0; i < String(n); i++) {
-                if (String(n)[i] % 2 === 0) {
-                    sumNumbersOfEven++;
-                }
-            }
-            return sumNumbersOfEven;
-        }
-        console.log(getNumberOfEven(223344));
-        console.log(getNumberOfEven(111));*/
-
-
-
-
-
-        function sumAll() {
-            var result = 0;
-
-            for (var i = 0; i < arguments.length; i++) {
-                result += arguments[i];
-            }
-
-            return result;
-        }
-
-        console.log(sumAll());
-        console.log(sumAll(1));
-        console.log(sumAll(1, 2));
-
-
-
-
-
-        function mathMinMax() {
-
-            let min = arguments[0];
-            let max = arguments[1];
-
-            for (let i = 0; i < arguments.length; i++) {
-
-                if (max < arguments[i]) {
-                    max = arguments[i];
-                } else if (min > arguments[i]) {
-                    min = arguments[i];
-                }
-            }
-
-            let minMax = [min, max];
-
-            return minMax;
-        }
-
-        console.log(mathMinMax(1, 2, 3, 4, 5));
-        console.log(mathMinMax(3, 4, 8, 5, 7, 2, 3, 0));
-
-
+        console.log(toArr(carObj));
 
     </script>
 </body>
