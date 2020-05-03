@@ -4,178 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_17</title>
-
-    <style>
-        .container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-        }
-
-        .box {
-            width: 100px;
-            height: 100px;
-            border: 1px solid salmon;
-            float: left;
-            display: flex;
-            align-content: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            cursor: pointer;
-        }
-
-        .box span {
-            width: 100%;
-            text-align: center;
-        }
-
-        .box button {
-            width: 40%;
-        }
-
-        .container_2 {
-            display: flex;
-            margin: 0 auto;
-            width: 600px;
-            margin-top: 100px;
-        }
-
-        .boxes {
-            width: 100px;
-            height: 100px;
-            margin-left: 15px;
-            border: 1px solid royalblue;
-            cursor: pointer;
-
-        }
-    </style>
+    <title>Home_work_18</title>
 </head>
 
 <body>
 
-    <div class="container">
-
-        <div class="box">
-
-            Val:<span class="box-content">0</span>
-
-            <button type="button" data-action="plus">+</button>
-
-            <button type="button" data-action="minus">-</button>
-
-        </div>
-
-        <div class="box">
-
-            Val:<span class="box-content">0</span>
-
-            <button type="button" data-action="plus">+</button>
-
-            <button type="button" data-action="minus">-</button>
-
-        </div>
-
-        <div class="box">
-
-            Val:<span class="box-content">0</span>
-
-            <button type="button" data-action="plus">+</button>
-
-            <button type="button" data-action="minus">-</button>
-
-        </div>
-
-        <div class="box">
-
-            Val:<span class="box-content">0</span>
-
-            <button type="button" data-action="plus">+</button>
-
-            <button type="button" data-action="minus">-</button>
-
-        </div>
-
-        <div class="box">
-
-            Val:<span class="box-content">0</span>
-
-            <button type="button" data-action="plus">+</button>
-
-            <button type="button" data-action="minus">-</button>
-
-        </div>
-
-    </div>
-
-    <div class="container_2">
-        <div class="boxes"></div>
-        <div class="boxes"></div>
-        <div class="boxes"></div>
-        <div class="boxes"></div>
-        <div class="boxes"></div>
-    </div>
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         'use strict';
 
-        /// Task 1 
+        // Bind
 
-        $(".box").on("click", "button", function (el) {
+        const person = {
+            name: 'Elizabeth'
+        }
 
+        function info(phone, email) {
+            console.log(`Name: ${this.name}\nNumber of Phone: ${phone}\nEmail: ${email}`);
+        }
 
-            if ($(this).attr('data-action') === 'plus') {
+        //info.bind(person)('12345', 'xxx-xxx-xxx@gmail.com');
+        //info.bind(person, '12345')('xxx-xxx-xxx@gmail.com');
+        //info.bind(person, '12345', 'xxx-xxx-xxx@gmail.com')();
 
-                this.closest('.box').firstElementChild.textContent++;
-                //this.parentNode.firstElementChild.textContent++;
+        /*function bind(fn, context, ...rest) {
+            return fn.bind(context, ...rest)
+        }*/
 
-            }
+        function bind(fn, context, ...rest) {
 
-            else if ($(this).attr('data-action') === 'minus') {
+            return function (...arg) {
 
-                this.parentNode.firstElementChild.textContent--;
-                //this.closest('.box').firstElementChild.textContent++;
-
-            }
-
-        });
-
-
-
-        /// Task 2
-
-        $(".boxes").click(function () {
-
-            const bgColor = this.style.backgroundColor;
-
-            switch (bgColor) {
-
-                case '':
-
-                    $(this).css('background-color', 'blue');
-                    break;
-
-                case 'blue':
-
-                    $(this).css('background-color', 'green');
-                    break;
-
-                case 'green':
-
-                    $(this).css('background-color', 'yellow');
-                    break;
-
-                default:
-
-                    $(this).css('background-color', 'blue');
+                return fn.call(context, ...rest.concat(arg));
 
             }
 
-            $(this).appendTo('.container_2');
+        }
 
-        });
+        bind(info, person)('12345', 'xxx-xxx-xxx@gmail.com');
+        bind(info, person, '12345')('xxx-xxx-xxx@gmail.com');
+        bind(info, person, '12345', 'xxx-xxx-xxx@gmail.com')();
+
+        /*  Way by lesson:
+        
+            const bind = function (fn, context) {
+            const necesseraryArgCount = 2;
+            const bindArg = Array.prototype.slice.call(arguments, necesseraryArgCount);
+            return function () {
+                const fnArg = Array.prototype.slice.call(arguments);
+                return fn.apply(context, bindArg.concat(fnArg))
+            }
+        };
+        console.log(bind(function () {}, {}, 'Java', 'Script'));
+        */
+
+
+        // Bind + Map
+
+
+        const arr = [1, 2, 3, 4, 5]
+
+        const map = function (array, cb, thisArg) {
+
+            const res = [];
+
+            for (let i = 0; i < arr.length; i++) {
+
+                res.push(cb.call(thisArg || array[i], array[i], i, array));
+
+            };
+
+            return res;
+
+        }
+
+        const arrToSq = map(arr, function (el, i) {
+
+            return {
+                index: i,
+                value: el ** 2
+            }
+        }, {});
+
+
+        console.log(arrToSq);
+
+
+
+        //const arrayTest = [1, 2, 3, 4, 5];
+        //const arratTest2 = [11, 22, 33, 44, 55];
+
+        /*function test(arr, n) {
+            return arr.map(function (el) {
+                return el * n
+            });
+        }
+        console.log(test(arrayTest, 5 ));*/
+
+        /*Array.prototype.test2 = function (n) {
+            return this.map(function (el) {
+                return el * n
+            });
+        };
+        console.log(arrayTest.test2(5));
+        console.log(arratTest2.test2(5));*/
 
 
     </script>
