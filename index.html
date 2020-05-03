@@ -4,132 +4,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_10</title>
+    <title>Home_work_11</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0 auto;
+        }
+
+        .container {
+            display: flex;
+            width: 600px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        .boxes {
+            width: 100px;
+            height: 100px;
+            margin-left: 15px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <h2>Первый Способ:</h2>
-    <div id="listWrap"></div>
+    <div class="container">
+        <div class="boxes" style="background-color: grey"></div>
+        <div class="boxes" style="background-color: grey"></div>
+        <div class="boxes" style="background-color: grey"></div>
+        <div class="boxes" style="background-color: grey"></div>
+        <div class="boxes" style="background-color: gray"></div>
+    </div>
 
-    <h2>Второй Способ:</h2>
-    <div id="listWrap_Second_Way"></div>
 
+    <div class="box shadow radius"></div>
 
-    <div id="tableWrap"></div>
 
     <script>
         'use strict';
 
-        // Task #1
+        /// Task 1 --- "this" Way 
 
-        // First Way
+        const $boxes = document.querySelectorAll('.boxes');
 
-        const numbers = [1, 2, [1.1, 1.2, 1.3], 3];
+        $boxes.forEach(function (box) {
+            box.addEventListener('click', function () {
 
-        function generateList(array) {
+                const bgColor = this.style.backgroundColor;
 
-            let tamp = "<ul>";
+                switch (bgColor) {
 
-            array.forEach(function (el) {
+                    case 'grey':
+                        this.style.backgroundColor = 'blue';
+                        break;
 
-                if (Array.isArray) {
+                    case 'blue':
+                        this.style.backgroundColor = 'green';
+                        break;
 
-                    tamp += "<li>" + generateList(el) + "</li>";
+                    case 'green':
+                        this.style.backgroundColor = 'yellow';
+                        break;
 
-                }
-
-                else {
-
-                    tamp += "<li>" + el + "</li>"
+                    default:
+                        this.style.backgroundColor = 'blue';
 
                 }
             });
 
-            tamp += "</ul>";
+            box.addEventListener('click', function () {
+
+                const $container = document.querySelector('.container');
+
+                $container.append(this);
+            });
+
+        });
 
 
-            return tamp;
 
-        }
+        /// Task 1 ---  "el.target" Way
+
+        /*  $boxes.forEach(function (box) {
+              box.addEventListener('click', changeColor);
+              box.addEventListener('click', toSwapBoxes);
+          });
+  
+          function changeColor(el) {
+  
+              const bgColor = el.target.style.backgroundColor;
+  
+              switch (bgColor) {
+  
+                  case 'grey':
+                      el.target.style.backgroundColor = 'blue';
+                      break;
+  
+                  case 'blue':
+                      el.target.style.backgroundColor = 'green';
+                      break;
+  
+                  case 'green':
+                      el.target.style.backgroundColor = 'yellow';
+                      break;
+  
+                  default:
+                      el.target.style.backgroundColor = 'blue';
+  
+              }
+  
+  
+          }
+  
+          function toSwapBoxes(el) {
+  
+              const $container = document.querySelector('.container');
+  
+              $container.append(el.target);
+  
+          }; */
 
 
-        document.getElementById('listWrap').innerHTML = generateList(numbers);
 
 
+        /// Task 2
 
-        // Task #1 --- Second Way
+        const $div = document.querySelector('.box')
 
+        function toggleClass(el, classOfEl) {
 
-        const numbers2 = [1, 2, [1.1, 1.2, 1.3], 3];
+            const classes = el.className.split(' ');
 
-        function generateList(array) {
+            const flag = classes.some(function (el) {
 
-            let tamp2 = "<ul>";
-
-            array.forEach(function (el) {
-
-                tamp2 += "<li>";
-
-                if (el.constructor === Array) {
-
-                    tamp2 += generateList(el);
-
-                }
-
-                else {
-
-                    tamp2 += el;
-
-                }
-
-                tamp2 += "</li>";
+                return el === classOfEl;
 
             });
 
-            tamp2 += "</ul>";
+            if (flag) {
 
+                const classIndex = classes.findIndex(function (el) {
 
-            return tamp2;
+                    return el === classOfEl;
 
-        }
+                });
 
-
-        document.getElementById('listWrap_Second_Way').innerHTML = generateList(numbers2);
-
-
-
-
-        // Task #2
-
-        function generateTable() {
-
-            let table = '<table>';
-
-            let num = 1;
-
-            for (let i = 0; i < 10; i++) {
-
-
-                table += '<tr>';
-
-                for (let j = 0; j < 10; j++) {
-
-                    table += '<td>' + (num++) + '</td>';
-
-                }
-
-                table += '</tr>';
+                classes.splice(classIndex, 1);
 
             }
 
-            table += '</table>';;
+            else {
 
+                classes.push(classOfEl);
 
-            return table;
+            }
+
+            return el.className = classes.join(' ');
         }
 
-        document.getElementById("tableWrap").innerHTML = generateTable();
+        console.log(toggleClass($div, 'border'));
+        console.log(toggleClass($div, 'border'));
+
+
+
+        /// Task 2 --- Second Way
+
+        /*function toggleClass(el2, classOfEl2) {
+            if (el2.classList.contains(classOfEl2)) {
+                el2.classList.remove(classOfEl2);
+            }
+            else {
+                el2.classList.add(classOfEl2);
+            }
+            return el2.className;
+        }
+        console.log(toggleClass($div, 'border'));
+        console.log(toggleClass($div, 'border'));*/
 
     </script>
 </body>
