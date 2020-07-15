@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home_work_21</title>
+    <title>Home_work_23</title>
 </head>
 
 <body>
@@ -12,66 +12,78 @@
     <script>
         'use strict';
 
-        const $ul_listOfFilms = document.createElement('ul');
-        $ul_listOfFilms.className = 'list_of_films';
-        document.body.prepend($ul_listOfFilms);
-
-
-        function getFilms() {
-            return fetch('https://swapi.dev/api/films/');
+        function Student(name, surName, yearBirth, marks) {
+            this.name = name;
+            this.surName = surName;
+            this.yearBirth = yearBirth;
+            this.marks = marks;
+            this.presence = new Array(25);
+            this.current = 0;
         }
-        //console.log(getFilms());
+
+        const student_test = new Student("Name", "SurName", 2000, [100, 100, 100, 100, 100]);
 
 
-        getFilms()
-            .then(response => {
-                return response.json();
+        Student.prototype.present = function () {
+            if (this.current < this.presence.length) this.presence[this.current++] = true;
+        }
+
+        Student.prototype.absent = function () {
+            if (this.current < this.presence.length) this.presence[this.current++] = false;
+        }
+
+        student_test.present();
+        student_test.present();
+        student_test.present();
+        student_test.present();
+        student_test.absent()
+        console.log(student_test.presence);
+
+
+
+        Student.prototype.getYearOfBirth = function () {
+            return new Date().getFullYear() - this.yearBirth;
+        }
+
+        console.log(student_test.getYearOfBirth());
+
+
+
+        Student.prototype.getAverageMark = function () {
+            let count = 0,
+                sum = this.marks.reduce((a, b) => { ++count; return a + b; }, 0);
+            return count ? sum / count : 0;
+        }
+
+        console.log(student_test.getAverageMark());
+
+
+
+        Student.prototype.summary = function () {
+
+            let sum = 0;
+
+            this.presence.forEach(el => {
+                if (el === "true") {
+                    sum++
+                }
             })
-            .then(data => {
-                //console.log(data.results);
 
-                data.results.forEach(film => {
+            let res = sum / this.presence.length;
 
-                    const $li_filmName = document.createElement('li');
-                    $li_filmName.className = 'film_name';
+            if (res > 0.9 && this.getAverageMark() > 90) {
+                return "Ути какой молодчинка!!!"
+            }
+            else if (res > 0.9 || this.getAverageMark() > 90) {
+                return "Норм, но можно лучше!!!"
+            }
+            else {
+                return "Редиска!!!"
+            }
 
-                    $li_filmName.innerHTML = film.title;
-                    //console.log(film.title)
-                    $ul_listOfFilms.append($li_filmName);
+        }
 
-                    const $ul_listOfShips = document.createElement('ul');
-                    $ul_listOfShips.className = 'list_of_ships';
-                    $ul_listOfShips.style = 'display:none';
-
-
-
-                    film.starships.forEach(starships => {
-                        //console.log(starships);
-
-                        const $li_shipName = document.createElement('li');
-                        $li_shipName.className = 'ship_name';
-
-                        fetch(starships)
-                            .then(response => {
-                                return response.json();
-                            })
-                            .then(data => {
-                                return $li_shipName.innerHTML = data.name;
-                            })
-
-
-                        $ul_listOfShips.append($li_shipName);
-                        $li_filmName.append($ul_listOfShips);
-
-
-                        $li_filmName.addEventListener('click', () => {
-                            return $ul_listOfShips.style = 'display:block';
-                        })
-                    })
-
-                })
-
-            })
+        console.log(student_test.summary());
 
 
     </script>
